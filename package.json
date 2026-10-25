@@ -5,11 +5,19 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tailwindcss -i ./src/input.css -o ./css/tailwind.css --minify"
+    "build": "sass --load-path=node_modules --quiet-deps src/scss/main.scss css/style.css --style=compressed --no-source-map",
+    "watch": "sass --load-path=node_modules --quiet-deps --watch src/scss/main.scss css/style.css --no-source-map",
+    "dev": "concurrently -n sass,serve -c yellow,cyan \"npm:watch\" \"live-server --port=3000 --no-browser --ignore=node_modules --ignore=.git --ignore=.githooks\"",
+    "deploy": "node scripts/deploy.js"
   },
   "keywords": [],
   "type": "commonjs",
+  "dependencies": {
+    "bootstrap": "5.3.3",
+    "sass": "1.77.8"
+  },
   "devDependencies": {
-    "tailwindcss": "^3.4.17"
+    "concurrently": "8.2.2",
+    "live-server": "1.2.2"
   }
 }

@@ -1,0 +1,131 @@
+// Bootstrap customisation: variables must be set before the import.
+$primary: #22d3a6;
+$info: #38bdf8;
+$body-bg: #0b1120;
+$body-color: #cbd5e1;
+$font-family-base: 'Inter', system-ui, sans-serif;
+$font-family-monospace: 'Fira Code', ui-monospace, monospace;
+$border-radius: 0.5rem;
+$border-radius-lg: 0.75rem;
+
+@import "bootstrap/scss/bootstrap";
+
+// Theme colours (dark is the default, light is set by data-bs-theme="light")
+:root {
+  --panel-bg: #ffffff;
+  --edge: #e2e8f0;
+}
+[data-bs-theme="dark"] {
+  --bs-body-bg: #0b1120;
+  --bs-body-color: #cbd5e1;
+  --panel-bg: #111a2e;
+  --edge: #1f2a44;
+}
+[data-bs-theme="light"] {
+  --bs-body-bg: #f8fafc;
+  --bs-body-color: #334155;
+  --panel-bg: #ffffff;
+  --edge: #e2e8f0;
+}
+
+html { scroll-behavior: smooth; }
+section[id] { scroll-margin-top: 5rem; }
+
+body {
+  background-image:
+    linear-gradient(rgba(34, 211, 166, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 211, 166, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+[data-bs-theme="light"] body { background-image: none; }
+
+.navbar-brand-mono { font-family: $font-family-monospace; }
+
+.site-header {
+  background-color: rgba(11, 17, 32, 0.85);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--edge);
+}
+[data-bs-theme="light"] .site-header { background-color: rgba(248, 250, 252, 0.9); }
+
+.panel {
+  background-color: var(--panel-bg);
+  border: 1px solid var(--edge);
+  border-radius: $border-radius-lg;
+}
+
+.section-title { font-family: $font-family-monospace; font-size: 0.875rem; color: $primary; }
+
+.avatar {
+  width: 6rem;
+  height: 6rem;
+  object-fit: cover;
+  object-position: top;
+  border: 2px solid $primary;
+}
+@media (min-width: 576px) {
+  .avatar { width: 7rem; height: 7rem; }
+}
+
+.tag {
+  font-family: $font-family-monospace;
+  font-size: 0.75rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--edge);
+  border-radius: 0.375rem;
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  display: inline-block;
+  margin: 0.2rem;
+}
+.tag:hover { border-color: $primary; color: $primary; }
+
+.lang-badge {
+  font-family: $font-family-monospace;
+  font-size: 0.75rem;
+}
+
+// Horizontal timeline: a line across the top, one dot per card
+.timeline {
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(16rem, 1fr);
+  gap: 1.5rem;
+  padding-top: 2.25rem;
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0.65rem;
+  height: 2px;
+  background: var(--edge);
+}
+.timeline-item { position: relative; }
+.timeline-dot {
+  position: absolute;
+  left: 50%;
+  top: -1.9rem;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  border-radius: 9999px;
+  background: $primary;
+  box-shadow: 0 0 0 4px var(--bs-body-bg);
+}
+@media (min-width: 768px) {
+  .timeline {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
+// Language switch: show only the elements for the active language
+html[lang="pt"] .en,
+html[lang="en"] .pt { display: none !important; }

@@ -1,0 +1,4 @@
+#!/bin/sh
+# Rebuild the Bootstrap CSS and stage it so the committed CSS always matches the Sass source.
+npm run build --silent || exit 1
+git add css/style.css
