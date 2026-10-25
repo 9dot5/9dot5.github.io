@@ -71,7 +71,7 @@
     <!-- Hero -->
     <section class="py-5 my-lg-4 d-flex flex-column align-items-center">
       <img src="img/profile.png" alt="Rui Pedro Faustino da Silva" class="avatar mb-4">
-      <p class="font-monospace text-primary small mb-3">Lisbon, Portugal</p>
+      <p class="font-monospace text-primary small mb-3"><span class="en">Lisbon, Portugal</span><span class="pt">Lisboa, Portugal</span></p>
       <h1 class="display-4 fw-bolder text-body-emphasis lh-sm">Rui Pedro Faustino da Silva</h1>
       <p class="lead text-body-secondary measure mt-3">
         <span class="en">Electrical &amp; DevOps Engineer (7+ yrs) <span class="text-info">|</span> ECE MSc Candidate (IST), Cybersecurity thesis <span class="text-info">|</span> Focused on Systems Protection</span>
@@ -79,12 +79,13 @@
       </p>
 
       <ul class="list-unstyled fill-grid fill-grid-tight w-100 mt-4 mb-0" style="--fill-min: 15rem;">
-        <li><a href="tel:+351926758472" class="tag d-block"><i class="fa-solid fa-phone text-primary me-2"></i>+351 926 758 472</a></li>
+        <li><button type="button" class="tag tag-copy" data-copy="+351926758472" title="Copy / Copiar"><i class="fa-solid fa-phone text-primary me-2"></i>+351 926 758 472</button></li>
         <li><a href="mailto:rsilva122@gmail.com" class="tag d-block"><i class="fa-solid fa-envelope text-primary me-2"></i>rsilva122@gmail.com</a></li>
         <li><a href="https://linkedin.com/in/ruipfsilva" target="_blank" rel="noopener noreferrer" class="tag d-block"><i class="fa-brands fa-linkedin text-primary me-2"></i>linkedin.com/in/ruipfsilva</a></li>
         <li><a href="https://github.com/9dot5" target="_blank" rel="noopener noreferrer" class="tag d-block"><i class="fa-brands fa-github text-primary me-2"></i>github.com/9dot5</a></li>
-        <li><span class="tag d-block"><i class="fa-solid fa-location-dot text-primary me-2"></i>Lisbon, Portugal</span></li>
+        <li><button type="button" class="tag tag-copy" data-copy="Lisbon, Portugal" data-copy-pt="Lisboa, Portugal" title="Copy / Copiar"><i class="fa-solid fa-location-dot text-primary me-2"></i><span class="en">Lisbon, Portugal</span><span class="pt">Lisboa, Portugal</span></button></li>
       </ul>
+      <p id="copy-status" class="copy-toast font-monospace small" role="status" aria-live="polite"></p>
 
       <div class="d-flex flex-wrap justify-content-center gap-3 mt-5">
         <a href="cv-en.pdf" download class="en btn btn-lg btn-primary fw-semibold">
@@ -292,6 +293,36 @@
         var next = root.lang === 'pt' ? 'en' : 'pt';
         applyLang(next);
         safeSet('lang', next);
+      });
+
+      // Copy chips: put the plain text on the clipboard and flash a check mark
+      document.querySelectorAll('.tag-copy').forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          var text = (root.lang === 'pt' && chip.getAttribute('data-copy-pt')) || chip.getAttribute('data-copy');
+          var icon = chip.querySelector('i');
+          var original = icon.className;
+          var toast = document.getElementById('copy-status');
+          navigator.clipboard.writeText(text).then(function () {
+            icon.className = 'fa-solid fa-check text-primary me-2';
+            chip.classList.add('copied');
+            toast.textContent = (root.lang === 'pt' ? 'Copiado: ' : 'Copied: ') + text;
+            // Place it just under the clicked chip, kept inside the viewport
+            var box = chip.getBoundingClientRect();
+            var half = toast.offsetWidth / 2;
+            var x = Math.min(Math.max(box.left + box.width / 2, half + 8), window.innerWidth - half - 8);
+            toast.style.left = x + 'px';
+            toast.style.top = (box.bottom + 8) + 'px';
+            toast.classList.add('show');
+            clearTimeout(toast.hideTimer);
+            toast.hideTimer = setTimeout(function () {
+              toast.classList.remove('show');
+            }, 1500);
+            setTimeout(function () {
+              icon.className = original;
+              chip.classList.remove('copied');
+            }, 1500);
+          });
+        });
       });
 
       // Close the mobile menu after picking a section

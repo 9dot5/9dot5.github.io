@@ -104,6 +104,44 @@ section[id] {
   }
 }
 
+// Chips that copy their text instead of opening a link
+.tag-copy {
+  width: 100%;
+  cursor: copy;
+
+  &.copied {
+    color: var(--bs-primary);
+    border-color: var(--bs-primary);
+  }
+}
+
+// Small "copied" notice, placed under the clicked chip by the page script
+.copy-toast {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: $zindex-toast;
+  max-width: calc(100vw - 2rem);
+  padding: .5rem 1rem;
+  margin: 0;
+  color: var(--bs-body-color);
+  text-align: center;
+  text-align-last: center;
+  pointer-events: none;
+  background-color: var(--bs-tertiary-bg);
+  border: 1px solid var(--bs-primary);
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  opacity: 0;
+  transform: translate(-50%, -.25rem);
+  transition: opacity .15s ease-out, transform .15s ease-out;
+
+  &.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
 .btn-ghost {
   --bs-btn-color: var(--bs-body-color);
   --bs-btn-border-color: var(--bs-border-color);
