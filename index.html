@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rui Pedro Faustino da Silva | DevSecOps &amp; Cybersecurity</title>
+  <meta name="description" content="Electrical & DevOps Engineer (7+ yrs) | Cybersecurity MSc Candidate (IST) | Focused on Systems Protection.">
+
+  <link rel="stylesheet" href="css/tailwind.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous">
+
+  <style>
+    html { scroll-behavior: smooth; }
+    section[id] { scroll-margin-top: 5rem; }
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(34,211,166,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34,211,166,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .cursor::after {
+      content: '_';
+      margin-left: 2px;
+      color: #22d3a6;
+      animation: blink 1s steps(1) infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+  </style>
+</head>
+<body class="bg-base text-slate-300 font-sans antialiased min-h-screen grid-bg">
+
+  <!-- Sticky navigation -->
+  <header class="sticky top-0 z-50 backdrop-blur bg-base/80 border-b border-edge">
+    <nav class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between" aria-label="Main navigation">
+      <a href="#top" class="font-mono text-accent font-semibold tracking-tight">&gt; rpfs<span class="text-slate-500">.dev</span> <span class="text-slate-500">@ 9dot5</span></a>
+      <ul class="hidden md:flex items-center gap-6 text-sm">
+        <li><a href="#about" class="hover:text-accent transition">About</a></li>
+        <li><a href="#skills" class="hover:text-accent transition">Skills</a></li>
+        <li><a href="#experience" class="hover:text-accent transition">Experience</a></li>
+        <li><a href="#education" class="hover:text-accent transition">Education</a></li>
+        <li><a href="#projects" class="hover:text-accent transition">Projects</a></li>
+      </ul>
+      <div class="flex items-center gap-2">
+        <button id="theme-toggle" type="button" class="w-9 h-9 rounded-md border border-edge hover:border-accent hover:text-accent transition" aria-label="Toggle light and dark theme">
+          <i class="fa-solid fa-circle-half-stroke"></i>
+        </button>
+        <a href="cv.pdf" class="hidden sm:inline-flex items-center gap-2 px-3 py-2 rounded-md bg-accent text-base text-sm font-semibold hover:brightness-110 transition">
+          <i class="fa-solid fa-download"></i> CV
+        </a>
+      </div>
+    </nav>
+    <!-- Mobile links -->
+    <div class="md:hidden border-t border-edge">
+      <ul class="flex justify-around text-xs py-2">
+        <li><a href="#about" class="px-2 py-1 hover:text-accent">About</a></li>
+        <li><a href="#skills" class="px-2 py-1 hover:text-accent">Skills</a></li>
+        <li><a href="#experience" class="px-2 py-1 hover:text-accent">Experience</a></li>
+        <li><a href="#education" class="px-2 py-1 hover:text-accent">Education</a></li>
+        <li><a href="#projects" class="px-2 py-1 hover:text-accent">Projects</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="top" class="max-w-5xl mx-auto px-4 sm:px-6">
+
+    <!-- Hero -->
+    <section class="pt-16 pb-20 sm:pt-24 sm:pb-28">
+      <p class="font-mono text-accent text-sm mb-4">Lisbon, Portugal</p>
+      <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
+        Rui Pedro Faustino da Silva
+      </h1>
+      <p class="mt-5 text-lg sm:text-xl text-slate-400 max-w-3xl">
+        Electrical &amp; DevOps Engineer (7+ yrs) <span class="text-accent2">|</span> Cybersecurity MSc Candidate (IST) <span class="text-accent2">|</span> Focused on Systems Protection
+      </p>
+
+      <ul class="mt-8 grid gap-3 sm:grid-cols-2 text-sm font-mono">
+        <li>
+          <a href="tel:+351926758472" class="flex items-center gap-3 hover:text-accent transition">
+            <i class="fa-solid fa-phone w-4 text-accent"></i> +351 926 758 472
+          </a>
+        </li>
+        <li>
+          <a href="mailto:rsilva122@gmail.com" class="flex items-center gap-3 hover:text-accent transition">
+            <i class="fa-solid fa-envelope w-4 text-accent"></i> rsilva122@gmail.com
+          </a>
+        </li>
+        <li>
+          <a href="https://linkedin.com/in/ruipfsilva" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 hover:text-accent transition">
+            <i class="fa-brands fa-linkedin w-4 text-accent"></i> linkedin.com/in/ruipfsilva
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/9dot5" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 hover:text-accent transition">
+            <i class="fa-brands fa-github w-4 text-accent"></i> github.com/9dot5
+          </a>
+        </li>
+        <li class="flex items-center gap-3">
+          <i class="fa-solid fa-location-dot w-4 text-accent"></i> Lisbon, Portugal
+        </li>
+      </ul>
+
+      <div class="mt-10 flex flex-wrap gap-3">
+        <a href="cv.pdf" download class="inline-flex items-center gap-2 px-5 py-3 rounded-md bg-accent text-base font-semibold hover:brightness-110 transition">
+          <i class="fa-solid fa-file-arrow-down"></i> Download CV
+        </a>
+        <a href="#experience" class="inline-flex items-center gap-2 px-5 py-3 rounded-md border border-edge hover:border-accent hover:text-accent transition">
+          <i class="fa-solid fa-arrow-down"></i> View experience
+        </a>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="py-16 border-t border-edge">
+      <h2 class="font-mono text-accent text-sm mb-2">01. About me</h2>
+      <h3 class="text-2xl sm:text-3xl font-bold text-white mb-6">Professional profile</h3>
+      <p class="text-base sm:text-lg leading-relaxed max-w-3xl text-white">
+        Electrical and Computer Engineer, with official residence in Figueira dos Cavaleiros and currently living in Lisbon, with over 7 years of experience in IT consulting, application support, DevOps, and systems integration (software and hardware). Focused on incident resolution, automation, and infrastructure stability in large-scale environments.
+      </p>
+      <p class="mt-4 text-base sm:text-lg leading-relaxed max-w-3xl text-white">
+        With a strong interest in network and system protection, I am currently looking to take my first steps in a cybersecurity-focused career, capitalizing on my multidisciplinary technological background. Dynamic, practical, and results-oriented.
+      </p>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="py-16 border-t border-edge">
+      <h2 class="font-mono text-accent text-sm mb-2">02. Technical skills</h2>
+      <h3 class="text-2xl sm:text-3xl font-bold text-white mb-8">Toolbox</h3>
+
+      <div class="grid gap-6 md:grid-cols-2">
+        <div class="bg-panel border border-edge rounded-xl p-6">
+          <h4 class="font-semibold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-server text-accent"></i> DevOps &amp; Infrastructure</h4>
+          <div class="flex flex-wrap gap-2 text-xs font-mono">
+            <span class="tag">Jenkins</span><span class="tag">GitLab CI</span><span class="tag">GoCD</span><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Proxmox</span><span class="tag">WSL2</span><span class="tag">Linux</span><span class="tag">PowerShell</span><span class="tag">Shell Scripting</span><span class="tag">Ansible <em class="not-italic text-slate-500">(Basic)</em></span>
+          </div>
+        </div>
+
+        <div class="bg-panel border border-edge rounded-xl p-6">
+          <h4 class="font-semibold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-code text-accent"></i> Languages</h4>
+          <div class="flex flex-wrap gap-2 text-xs font-mono">
+            <span class="tag">Java</span><span class="tag">C</span><span class="tag">C++</span><span class="tag">Python</span><span class="tag">PL/SQL</span><span class="tag">SQL</span><span class="tag">JavaScript</span><span class="tag">HTML</span><span class="tag">CSS</span>
+          </div>
+        </div>
+
+        <div class="bg-panel border border-edge rounded-xl p-6">
+          <h4 class="font-semibold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-database text-accent"></i> Databases</h4>
+          <div class="flex flex-wrap gap-2 text-xs font-mono">
+            <span class="tag">PostgreSQL</span><span class="tag">Oracle SQL</span><span class="tag">Microsoft SQL Server</span><span class="tag">Liquibase <em class="not-italic text-slate-500">(Basic)</em></span>
+          </div>
+        </div>
+
+        <div class="bg-panel border border-edge rounded-xl p-6">
+          <h4 class="font-semibold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-chart-line text-accent"></i> ITSM &amp; Monitoring</h4>
+          <div class="flex flex-wrap gap-2 text-xs font-mono">
+            <span class="tag">ServiceNow</span><span class="tag">Kibana</span><span class="tag">Dynatrace</span>
+          </div>
+        </div>
+
+        <div class="bg-panel border border-edge rounded-xl p-6 md:col-span-2">
+          <h4 class="font-semibold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-toolbox text-accent"></i> Other tools <span class="text-xs font-normal text-slate-500">(in enterprise environments)</span></h4>
+          <div class="flex flex-wrap gap-2 text-xs font-mono">
+            <span class="tag">Maven</span><span class="tag">Jira</span><span class="tag">Confluence</span><span class="tag">Git</span><span class="tag">Sonar</span><span class="tag">Devin</span><span class="tag">Copilot</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="py-16 border-t border-edge">
+      <h2 class="font-mono text-accent text-sm mb-2">03. Professional experience</h2>
+      <h3 class="text-2xl sm:text-3xl font-bold text-white mb-10">Timeline</h3>
+
+      <ol class="relative border-l border-edge ml-2 sm:ml-3 space-y-10">
+        <li class="ml-6 sm:ml-8">
+          <span class="dot"></span>
+          <p class="font-mono text-xs text-accent">Jul 2026 — Present</p>
+          <h4 class="text-lg font-semibold text-white">Application Support Engineer</h4>
+          <p class="text-sm text-slate-400">Agap2IT · Santander PT</p>
+        </li>
+        <li class="ml-6 sm:ml-8">
+          <span class="dot"></span>
+          <p class="font-mono text-xs text-accent">Jan 2026 — Jun 2026</p>
+          <h4 class="text-lg font-semibold text-white">Infrastructure / DevOps</h4>
+          <p class="text-sm text-slate-400">Agap2IT · Internal Project</p>
+        </li>
+        <li class="ml-6 sm:ml-8">
+          <span class="dot"></span>
+          <p class="font-mono text-xs text-accent">Mar 2023 — Dec 2025</p>
+          <h4 class="text-lg font-semibold text-white">DevOps Engineer / Release Manager</h4>
+          <p class="text-sm text-slate-400">Agap2IT · A-to-Be (Grupo Brisa)</p>
+        </li>
+        <li class="ml-6 sm:ml-8">
+          <span class="dot"></span>
+          <p class="font-mono text-xs text-accent">Oct 2021 — Feb 2023</p>
+          <h4 class="text-lg font-semibold text-white">Unpaid Leave</h4>
+          <p class="text-sm text-slate-400">Academic focus for MSc in Cybersecurity</p>
+        </li>
+        <li class="ml-6 sm:ml-8">
+          <span class="dot"></span>
+          <p class="font-mono text-xs text-accent">Oct 2019 — Sep 2021</p>
+          <h4 class="text-lg font-semibold text-white">Full-Stack Developer</h4>
+          <p class="text-sm text-slate-400">Agap2IT · Santander</p>
+        </li>
+        <li class="ml-6 sm:ml-8">
+          <span class="dot"></span>
+          <p class="font-mono text-xs text-accent">Feb 2018 — Sep 2019</p>
+          <h4 class="text-lg font-semibold text-white">Full-Stack Developer &amp; Tester</h4>
+          <p class="text-sm text-slate-400">Everis Centers · MAPFRE Malta / SIBS / ANDBANK</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Education -->
+    <section id="education" class="py-16 border-t border-edge">
+      <h2 class="font-mono text-accent text-sm mb-2">04. Academic education</h2>
+      <h3 class="text-2xl sm:text-3xl font-bold text-white mb-8">Education</h3>
+
+      <div class="grid gap-6 md:grid-cols-2">
+        <article class="bg-panel border border-edge rounded-xl p-6">
+          <p class="font-mono text-xs text-accent mb-2">Ongoing</p>
+          <h4 class="text-lg font-semibold text-white">Master's in Electrical and Computer Engineering</h4>
+          <p class="text-sm text-slate-400 mb-4">Instituto Superior Técnico</p>
+          <p class="text-sm mb-2 font-semibold text-slate-200">Featured courses</p>
+          <ul class="text-sm list-disc list-inside space-y-1 mb-4">
+            <li>Communications Security</li>
+            <li>Internet Architectures and Systems</li>
+            <li>Parallel and Heterogeneous Computing Systems</li>
+            <li>Databases</li>
+          </ul>
+          <p class="text-sm"><span class="font-semibold text-slate-200">Thesis:</span> Cybersecurity</p>
+        </article>
+
+        <article class="bg-panel border border-edge rounded-xl p-6">
+          <p class="font-mono text-xs text-accent mb-2">Completed</p>
+          <h4 class="text-lg font-semibold text-white">Bachelor's in Electrical and Computer Engineering</h4>
+          <p class="text-sm text-slate-400">Instituto Superior Técnico</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="py-16 border-t border-edge">
+      <h2 class="font-mono text-accent text-sm mb-2">05. Personal projects</h2>
+      <h3 class="text-2xl sm:text-3xl font-bold text-white mb-8">Projects</h3>
+
+      <article class="bg-panel border border-edge rounded-xl p-6 hover:border-accent transition">
+        <div class="flex items-center gap-3 mb-3">
+          <i class="fa-solid fa-flask-vial text-accent text-xl"></i>
+          <h4 class="text-lg font-semibold text-white">Home Lab DevOps</h4>
+        </div>
+        <p class="text-sm leading-relaxed mb-4">Local configuration for deployment testing.</p>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Proxmox</span><span class="tag">WSL2</span>
+        </div>
+      </article>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 border-t border-edge text-sm text-slate-500 flex flex-col sm:flex-row gap-3 justify-between">
+      <p class="font-mono">&copy; <span id="year"></span> Rui Pedro Faustino da Silva</p>
+      <div class="flex gap-5 text-lg">
+        <a href="https://linkedin.com/in/ruipfsilva" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="hover:text-accent transition"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://github.com/9dot5" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="hover:text-accent transition"><i class="fa-brands fa-github"></i></a>
+        <a href="mailto:rsilva122@gmail.com" aria-label="Email" class="hover:text-accent transition"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </footer>
+  </main>
+
+  <style>
+    .tag {
+      padding: 0.35rem 0.7rem;
+      border-radius: 0.375rem;
+      border: 1px solid #1f2a44;
+      background: #0b1120;
+      color: #cbd5e1;
+    }
+    .tag:hover { border-color: #22d3a6; color: #22d3a6; }
+    .dot {
+      position: absolute;
+      left: -5px;
+      top: 0.5rem;
+      width: 9px;
+      height: 9px;
+      border-radius: 9999px;
+      background: #22d3a6;
+      box-shadow: 0 0 0 4px #0b1120;
+    }
+    /* Light theme overrides */
+    html:not(.dark) body { background-color: #f8fafc; color: #334155; }
+    html:not(.dark) .bg-base { background-color: #f8fafc !important; }
+    html:not(.dark) header { background-color: rgba(248,250,252,0.85) !important; }
+    html:not(.dark) .bg-panel { background-color: #ffffff !important; }
+    html:not(.dark) .border-edge { border-color: #e2e8f0 !important; }
+    html:not(.dark) .text-white { color: #0f172a !important; }
+    html:not(.dark) .tag { background: #f1f5f9; color: #334155; border-color: #e2e8f0; }
+    html:not(.dark) .text-accent { color: #059669; }
+    html:not(.dark) .bg-accent { background-color: #059669 !important; color: #ffffff !important; }
+    html:not(.dark) .dot { box-shadow: 0 0 0 4px #f8fafc; background: #059669; }
+    html:not(.dark) .grid-bg { background-image: none; }
+  </style>
+
+  <script>
+    // Theme toggle (dark by default, remembered per browser)
+    (function () {
+      var root = document.documentElement;
+      try {
+        var saved = localStorage.getItem('theme');
+        if (saved === 'light') root.classList.remove('dark');
+      } catch (e) {}
+      var btn = document.getElementById('theme-toggle');
+      btn.addEventListener('click', function () {
+        var isDark = root.classList.toggle('dark');
+        try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch (e) {}
+      });
+      document.getElementById('year').textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
