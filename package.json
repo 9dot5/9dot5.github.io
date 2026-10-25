@@ -2,14 +2,17 @@
   "name": "portfolio",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tailwindcss -i ./src/input.css -o ./css/tailwind.css --minify"
+    "build": "npm run build:css && npm run vendor",
+    "build:css": "sass --load-path=node_modules --no-source-map --style=compressed --quiet-deps --silence-deprecation=import scss/main.scss css/main.css",
+    "watch:css": "sass --load-path=node_modules --no-source-map --style=compressed --quiet-deps --silence-deprecation=import --watch scss/main.scss css/main.css",
+    "vendor": "node scripts/vendor.js"
   },
   "keywords": [],
   "type": "commonjs",
   "devDependencies": {
-    "tailwindcss": "^3.4.17"
+    "bootstrap": "^5.3.8",
+    "sass": "^1.106.1"
   }
 }

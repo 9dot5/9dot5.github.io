@@ -1,0 +1,36 @@
+// Site palette, used by both colour modes
+$accent-dark:   #22d3a6;
+$accent2-dark:  #38bdf8;
+$accent-light:  #047857;
+$accent2-light: #0284c7;
+$base-dark:     #0b1120;
+$panel-dark:    #111a2e;
+$edge-dark:     #1f2a44;
+
+// Bootstrap overrides: light mode
+$primary:              $accent-light;
+$info:                 $accent2-light;
+$body-bg:              #f8fafc;
+$body-color:           #334155;
+$body-secondary-color: #64748b;
+$body-tertiary-bg:     #ffffff;
+$body-emphasis-color:  #0f172a;
+$border-color:         #e2e8f0;
+
+// Bootstrap overrides: dark mode
+$body-bg-dark:              $base-dark;
+$body-color-dark:           #cbd5e1;
+$body-secondary-color-dark: #94a3b8;
+$body-tertiary-bg-dark:     $panel-dark;
+$body-emphasis-color-dark:  #ffffff;
+$border-color-dark:         $edge-dark;
+$link-color-dark:           $accent-dark;
+$link-hover-color-dark:     #5eead4;
+
+// Typography and shape
+$font-family-sans-serif: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+$font-family-monospace:  "Fira Code", ui-monospace, SFMono-Regular, Consolas, monospace;
+$headings-font-weight:   700;
+$link-decoration:        none;
+$border-radius:          .5rem;
+$border-radius-lg:       .75rem;

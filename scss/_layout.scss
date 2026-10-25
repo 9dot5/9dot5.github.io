@@ -1,0 +1,219 @@
+// Fluid root size: the same proportions on a phone, a laptop or a wide screen
+html {
+  font-size: clamp(.95rem, .88rem + .3vw, 1.125rem);
+}
+
+// All text is justified; the last line sits on the centre, so blocks grow from the middle out
+body {
+  text-align: justify;
+  text-align-last: center;
+  text-justify: inter-word;
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+
+p,
+li {
+  text-wrap: pretty;
+}
+
+// Justifying a short heading only opens gaps between words, so headings are centred and balanced
+h1, h2, h3, h4, h5, h6,
+.lead {
+  text-align: center;
+  hyphens: manual;
+  text-wrap: balance;
+}
+
+.prose {
+  font-size: clamp(1rem, .92rem + .4vw, 1.25rem);
+}
+
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+.section {
+  padding-block: clamp(3rem, 2rem + 4vw, 5rem);
+  border-top: 1px solid var(--bs-border-color);
+}
+
+.eyebrow {
+  margin-bottom: .5rem;
+  font-family: $font-family-monospace;
+  font-size: $font-size-sm;
+  font-weight: 500;
+  color: var(--bs-primary);
+}
+
+.measure {
+  max-width: 70ch;
+  margin-inline: auto;
+}
+
+// Boxes start at the centre and stretch sideways until each row is full
+.fill-grid {
+  --fill-min: 18rem;
+  --fill-gap: #{$spacer * 1.5};
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--fill-gap);
+
+  > * {
+    flex: 1 1 min(100%, var(--fill-min));
+  }
+}
+
+// Chips keep their natural width and share whatever is left on their line
+.fill-grid-tight {
+  --fill-gap: #{$spacer * .5};
+
+  > * {
+    flex: 1 1 auto;
+  }
+}
+
+.panel {
+  padding: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  background-color: var(--bs-tertiary-bg);
+  border: 1px solid var(--bs-border-color);
+  border-radius: $border-radius-lg;
+  transition: border-color .15s ease-in-out;
+
+  &:hover {
+    border-color: var(--bs-primary);
+  }
+}
+
+.tag {
+  padding: .35rem .7rem;
+  font-family: $font-family-monospace;
+  font-size: $font-size-sm;
+  text-align: center;
+  text-align-last: center;
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  border: 1px solid var(--bs-border-color);
+  border-radius: $border-radius;
+  transition: color .15s ease-in-out, border-color .15s ease-in-out;
+
+  &:hover {
+    color: var(--bs-primary);
+    border-color: var(--bs-primary);
+  }
+}
+
+.btn-ghost {
+  --bs-btn-color: var(--bs-body-color);
+  --bs-btn-border-color: var(--bs-border-color);
+  --bs-btn-hover-color: var(--bs-primary);
+  --bs-btn-hover-border-color: var(--bs-primary);
+  --bs-btn-active-color: var(--bs-primary);
+  --bs-btn-active-border-color: var(--bs-primary);
+}
+
+.navbar-glass {
+  background-color: rgba(var(--bs-body-bg-rgb), .8);
+  border-bottom: 1px solid var(--bs-border-color);
+  backdrop-filter: blur(8px);
+}
+
+// Brand glyph: half "1" (flag), half "I" (serifs), sized to one monospace cell at cap height
+.glyph-1i {
+  width: .6em;
+  height: .7em;
+  overflow: visible;
+  vertical-align: baseline;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 11;
+  stroke-linejoin: miter;
+}
+
+.school-logo {
+  width: clamp(4.5rem, 3.5rem + 4vw, 7rem);
+  height: auto;
+}
+
+.avatar {
+  width: clamp(8rem, 6rem + 8vw, 11rem);
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: top;
+  border: 2px solid var(--bs-primary);
+  border-radius: 50%;
+}
+
+// Timeline: one column on small screens, branching left and right of a centre line from md up
+.timeline {
+  --line-x: .5rem;
+  --dot: 11px;
+  position: relative;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  &::before {
+    position: absolute;
+    inset-block: 0;
+    left: var(--line-x);
+    width: 1px;
+    content: "";
+    background-color: var(--bs-border-color);
+  }
+
+  > li {
+    position: relative;
+    padding-left: calc(var(--line-x) + 1.5rem);
+
+    &::before {
+      position: absolute;
+      top: 1.75rem;
+      left: calc(var(--line-x) - var(--dot) / 2);
+      width: var(--dot);
+      height: var(--dot);
+      content: "";
+      background-color: var(--bs-primary);
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px var(--bs-body-bg);
+    }
+  }
+
+  > li + li {
+    margin-top: 1.5rem;
+  }
+
+  @include media-breakpoint-up(md) {
+    &::before {
+      left: 50%;
+    }
+
+    > li {
+      width: 50%;
+      padding-right: 2rem;
+      padding-left: 0;
+
+      &::before {
+        right: calc(var(--dot) / -2);
+        left: auto;
+      }
+    }
+
+    > li:nth-child(even) {
+      margin-left: 50%;
+      padding-right: 0;
+      padding-left: 2rem;
+
+      &::before {
+        right: auto;
+        left: calc(var(--dot) / -2);
+      }
+    }
+
+    // Stagger the two sides so the boxes interlock instead of leaving gaps
+    > li + li {
+      margin-top: -1.5rem;
+    }
+  }
+}
