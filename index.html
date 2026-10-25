@@ -6,6 +6,19 @@
   <title>Rui Pedro Faustino da Silva | DevSecOps &amp; Cybersecurity</title>
   <meta name="description" content="Electrical & DevOps Engineer (7+ yrs) | Cybersecurity MSc Candidate (IST) | Focused on Systems Protection.">
 
+  <script>
+    // Pick the language before first paint: saved choice, else browser language, else English
+    (function () {
+      var lang = 'en';
+      try {
+        var saved = localStorage.getItem('lang');
+        if (saved === 'pt' || saved === 'en') lang = saved;
+        else if ((navigator.language || '').toLowerCase().indexOf('pt') === 0) lang = 'pt';
+      } catch (e) {}
+      document.documentElement.lang = lang;
+    })();
+  </script>
+
   <link rel="stylesheet" href="css/tailwind.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,13 +35,8 @@
         linear-gradient(90deg, rgba(34,211,166,0.04) 1px, transparent 1px);
       background-size: 40px 40px;
     }
-    .cursor::after {
-      content: '_';
-      margin-left: 2px;
-      color: #22d3a6;
-      animation: blink 1s steps(1) infinite;
-    }
-    @keyframes blink { 50% { opacity: 0; } }
+    /* Language switch: show only the elements for the active language */
+    html[lang="pt"] .en, html[lang="en"] .pt { display: none !important; }
   </style>
 </head>
 <body class="bg-base text-slate-300 font-sans antialiased min-h-screen grid-bg">
@@ -36,19 +44,25 @@
   <!-- Sticky navigation -->
   <header class="sticky top-0 z-50 backdrop-blur bg-base/80 border-b border-edge">
     <nav class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between" aria-label="Main navigation">
-      <a href="#top" class="font-mono text-accent font-semibold tracking-tight">&gt; rpfs<span class="text-slate-500">.dev</span> <span class="text-slate-500">@ 9dot5</span></a>
+      <a href="#top" class="font-mono text-accent font-semibold tracking-tight">&gt; https://9dot5.github.io/ <span class="text-slate-500">by @rui22silva</span></a>
       <ul class="hidden md:flex items-center gap-6 text-sm">
-        <li><a href="#about" class="hover:text-accent transition">About</a></li>
-        <li><a href="#skills" class="hover:text-accent transition">Skills</a></li>
-        <li><a href="#experience" class="hover:text-accent transition">Experience</a></li>
-        <li><a href="#education" class="hover:text-accent transition">Education</a></li>
-        <li><a href="#projects" class="hover:text-accent transition">Projects</a></li>
+        <li><a href="#about" class="hover:text-accent transition"><span class="en">About</span><span class="pt">Sobre</span></a></li>
+        <li><a href="#skills" class="hover:text-accent transition"><span class="en">Skills</span><span class="pt">Competências</span></a></li>
+        <li><a href="#experience" class="hover:text-accent transition"><span class="en">Experience</span><span class="pt">Experiência</span></a></li>
+        <li><a href="#education" class="hover:text-accent transition"><span class="en">Education</span><span class="pt">Formação</span></a></li>
+        <li><a href="#projects" class="hover:text-accent transition"><span class="en">Projects</span><span class="pt">Projetos</span></a></li>
       </ul>
       <div class="flex items-center gap-2">
+        <button id="lang-toggle" type="button" class="h-9 px-3 rounded-md border border-edge hover:border-accent hover:text-accent transition font-mono text-xs" aria-label="Switch language">
+          <span id="lang-label">PT</span>
+        </button>
         <button id="theme-toggle" type="button" class="w-9 h-9 rounded-md border border-edge hover:border-accent hover:text-accent transition" aria-label="Toggle light and dark theme">
           <i class="fa-solid fa-circle-half-stroke"></i>
         </button>
-        <a href="cv.pdf" class="hidden sm:inline-flex items-center gap-2 px-3 py-2 rounded-md bg-accent text-base text-sm font-semibold hover:brightness-110 transition">
+        <a href="cv-en.pdf" download class="en hidden sm:inline-flex items-center gap-2 px-3 py-2 rounded-md bg-accent text-base text-sm font-semibold hover:brightness-110 transition">
+          <i class="fa-solid fa-download"></i> CV
+        </a>
+        <a href="cv-pt.pdf" download class="pt hidden sm:inline-flex items-center gap-2 px-3 py-2 rounded-md bg-accent text-base text-sm font-semibold hover:brightness-110 transition">
           <i class="fa-solid fa-download"></i> CV
         </a>
       </div>
@@ -56,11 +70,11 @@
     <!-- Mobile links -->
     <div class="md:hidden border-t border-edge">
       <ul class="flex justify-around text-xs py-2">
-        <li><a href="#about" class="px-2 py-1 hover:text-accent">About</a></li>
-        <li><a href="#skills" class="px-2 py-1 hover:text-accent">Skills</a></li>
-        <li><a href="#experience" class="px-2 py-1 hover:text-accent">Experience</a></li>
-        <li><a href="#education" class="px-2 py-1 hover:text-accent">Education</a></li>
-        <li><a href="#projects" class="px-2 py-1 hover:text-accent">Projects</a></li>
+        <li><a href="#about" class="px-2 py-1 hover:text-accent"><span class="en">About</span><span class="pt">Sobre</span></a></li>
+        <li><a href="#skills" class="px-2 py-1 hover:text-accent"><span class="en">Skills</span><span class="pt">Competências</span></a></li>
+        <li><a href="#experience" class="px-2 py-1 hover:text-accent"><span class="en">Experience</span><span class="pt">Experiência</span></a></li>
+        <li><a href="#education" class="px-2 py-1 hover:text-accent"><span class="en">Education</span><span class="pt">Formação</span></a></li>
+        <li><a href="#projects" class="px-2 py-1 hover:text-accent"><span class="en">Projects</span><span class="pt">Projetos</span></a></li>
       </ul>
     </div>
   </header>
@@ -69,12 +83,14 @@
 
     <!-- Hero -->
     <section class="pt-16 pb-20 sm:pt-24 sm:pb-28">
+      <img src="img/profile.png" alt="Rui Pedro Faustino da Silva" class="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover object-top border-2 border-accent mb-8">
       <p class="font-mono text-accent text-sm mb-4">Lisbon, Portugal</p>
       <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
         Rui Pedro Faustino da Silva
       </h1>
       <p class="mt-5 text-lg sm:text-xl text-slate-400 max-w-3xl">
-        Electrical &amp; DevOps Engineer (7+ yrs) <span class="text-accent2">|</span> Cybersecurity MSc Candidate (IST) <span class="text-accent2">|</span> Focused on Systems Protection
+        <span class="en">Electrical &amp; DevOps Engineer (7+ yrs) <span class="text-accent2">|</span> Cybersecurity MSc Candidate (IST) <span class="text-accent2">|</span> Focused on Systems Protection</span>
+        <span class="pt">Engenheiro Eletrotécnico e de DevOps (7+ anos) <span class="text-accent2">|</span> Candidato a Mestrado em Cibersegurança (IST) <span class="text-accent2">|</span> Focado na Proteção de Sistemas</span>
       </p>
 
       <ul class="mt-8 grid gap-3 sm:grid-cols-2 text-sm font-mono">
@@ -104,63 +120,72 @@
       </ul>
 
       <div class="mt-10 flex flex-wrap gap-3">
-        <a href="cv.pdf" download class="inline-flex items-center gap-2 px-5 py-3 rounded-md bg-accent text-base font-semibold hover:brightness-110 transition">
+        <a href="cv-en.pdf" download class="en inline-flex items-center gap-2 px-5 py-3 rounded-md bg-accent text-base font-semibold hover:brightness-110 transition">
           <i class="fa-solid fa-file-arrow-down"></i> Download CV
         </a>
+        <a href="cv-pt.pdf" download class="pt inline-flex items-center gap-2 px-5 py-3 rounded-md bg-accent text-base font-semibold hover:brightness-110 transition">
+          <i class="fa-solid fa-file-arrow-down"></i> Descarregar CV
+        </a>
         <a href="#experience" class="inline-flex items-center gap-2 px-5 py-3 rounded-md border border-edge hover:border-accent hover:text-accent transition">
-          <i class="fa-solid fa-arrow-down"></i> View experience
+          <i class="fa-solid fa-arrow-down"></i> <span class="en">View experience</span><span class="pt">Ver experiência</span>
         </a>
       </div>
     </section>
 
     <!-- About -->
     <section id="about" class="py-16 border-t border-edge">
-      <h2 class="font-mono text-accent text-sm mb-2">01. About me</h2>
-      <h3 class="text-2xl sm:text-3xl font-bold text-white mb-6">Professional profile</h3>
-      <p class="text-base sm:text-lg leading-relaxed max-w-3xl text-white">
+      <h2 class="font-mono text-accent text-sm mb-2"><span class="en">01. About me</span><span class="pt">01. Sobre mim</span></h2>
+      <h3 class="text-2xl sm:text-3xl font-bold text-white mb-6"><span class="en">Professional profile</span><span class="pt">Perfil profissional</span></h3>
+      <p class="en text-base sm:text-lg leading-relaxed max-w-3xl text-white">
         Electrical and Computer Engineer, with official residence in Figueira dos Cavaleiros and currently living in Lisbon, with over 7 years of experience in IT consulting, application support, DevOps, and systems integration (software and hardware). Focused on incident resolution, automation, and infrastructure stability in large-scale environments.
       </p>
-      <p class="mt-4 text-base sm:text-lg leading-relaxed max-w-3xl text-white">
+      <p class="en mt-4 text-base sm:text-lg leading-relaxed max-w-3xl text-white">
         With a strong interest in network and system protection, I am currently looking to take my first steps in a cybersecurity-focused career, capitalizing on my multidisciplinary technological background. Dynamic, practical, and results-oriented.
+      </p>
+      <p class="pt text-base sm:text-lg leading-relaxed max-w-3xl text-white">
+        Engenheiro Eletrotécnico e de Computadores, com residência oficial em Figueira dos Cavaleiros e atualmente a viver em Lisboa, com mais de 7 anos de experiência em consultoria de TI, suporte a aplicações, DevOps e integração de sistemas (software e hardware). Focado na resolução de incidentes, automação e estabilidade de infraestruturas em ambientes de grande escala.
+      </p>
+      <p class="pt mt-4 text-base sm:text-lg leading-relaxed max-w-3xl text-white">
+        Com um forte interesse na proteção de redes e sistemas, procuro atualmente dar os primeiros passos numa carreira focada em cibersegurança, aproveitando a minha formação tecnológica multidisciplinar. Dinâmico, prático e orientado para resultados.
       </p>
     </section>
 
     <!-- Skills -->
     <section id="skills" class="py-16 border-t border-edge">
-      <h2 class="font-mono text-accent text-sm mb-2">02. Technical skills</h2>
-      <h3 class="text-2xl sm:text-3xl font-bold text-white mb-8">Toolbox</h3>
+      <h2 class="font-mono text-accent text-sm mb-2"><span class="en">02. Technical skills</span><span class="pt">02. Competências técnicas</span></h2>
+      <h3 class="text-2xl sm:text-3xl font-bold text-white mb-8"><span class="en">Toolbox</span><span class="pt">Ferramentas</span></h3>
 
       <div class="grid gap-6 md:grid-cols-2">
         <div class="bg-panel border border-edge rounded-xl p-6">
-          <h4 class="font-semibold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-server text-accent"></i> DevOps &amp; Infrastructure</h4>
+          <h4 class="font-semibold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-server text-accent"></i> <span class="en">DevOps &amp; Infrastructure</span><span class="pt">DevOps e Infraestrutura</span></h4>
           <div class="flex flex-wrap gap-2 text-xs font-mono">
-            <span class="tag">Jenkins</span><span class="tag">GitLab CI</span><span class="tag">GoCD</span><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Proxmox</span><span class="tag">WSL2</span><span class="tag">Linux</span><span class="tag">PowerShell</span><span class="tag">Shell Scripting</span><span class="tag">Ansible <em class="not-italic text-slate-500">(Basic)</em></span>
+            <span class="tag">Jenkins</span><span class="tag">GitLab CI</span><span class="tag">GoCD</span><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Proxmox</span><span class="tag">WSL2</span><span class="tag">Linux</span><span class="tag">PowerShell</span><span class="tag">Shell Scripting</span><span class="tag">Ansible <em class="not-italic text-slate-500"><span class="en">(Basic)</span><span class="pt">(Básico)</span></em></span>
           </div>
         </div>
 
         <div class="bg-panel border border-edge rounded-xl p-6">
-          <h4 class="font-semibold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-code text-accent"></i> Languages</h4>
+          <h4 class="font-semibold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-code text-accent"></i> <span class="en">Languages</span><span class="pt">Linguagens</span></h4>
           <div class="flex flex-wrap gap-2 text-xs font-mono">
             <span class="tag">Java</span><span class="tag">C</span><span class="tag">C++</span><span class="tag">Python</span><span class="tag">PL/SQL</span><span class="tag">SQL</span><span class="tag">JavaScript</span><span class="tag">HTML</span><span class="tag">CSS</span>
           </div>
         </div>
 
         <div class="bg-panel border border-edge rounded-xl p-6">
-          <h4 class="font-semibold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-database text-accent"></i> Databases</h4>
+          <h4 class="font-semibold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-database text-accent"></i> <span class="en">Databases</span><span class="pt">Bases de dados</span></h4>
           <div class="flex flex-wrap gap-2 text-xs font-mono">
-            <span class="tag">PostgreSQL</span><span class="tag">Oracle SQL</span><span class="tag">Microsoft SQL Server</span><span class="tag">Liquibase <em class="not-italic text-slate-500">(Basic)</em></span>
+            <span class="tag">PostgreSQL</span><span class="tag">Oracle SQL</span><span class="tag">Microsoft SQL Server</span><span class="tag">Liquibase <em class="not-italic text-slate-500"><span class="en">(Basic)</span><span class="pt">(Básico)</span></em></span>
           </div>
         </div>
 
         <div class="bg-panel border border-edge rounded-xl p-6">
-          <h4 class="font-semibold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-chart-line text-accent"></i> ITSM &amp; Monitoring</h4>
+          <h4 class="font-semibold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-chart-line text-accent"></i> <span class="en">ITSM &amp; Monitoring</span><span class="pt">ITSM e monitorização</span></h4>
           <div class="flex flex-wrap gap-2 text-xs font-mono">
             <span class="tag">ServiceNow</span><span class="tag">Kibana</span><span class="tag">Dynatrace</span>
           </div>
         </div>
 
         <div class="bg-panel border border-edge rounded-xl p-6 md:col-span-2">
-          <h4 class="font-semibold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-toolbox text-accent"></i> Other tools <span class="text-xs font-normal text-slate-500">(in enterprise environments)</span></h4>
+          <h4 class="font-semibold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-toolbox text-accent"></i> <span class="en">Other tools</span><span class="pt">Outras ferramentas</span> <span class="text-xs font-normal text-slate-500"><span class="en">(in enterprise environments)</span><span class="pt">(em ambientes empresariais)</span></span></h4>
           <div class="flex flex-wrap gap-2 text-xs font-mono">
             <span class="tag">Maven</span><span class="tag">Jira</span><span class="tag">Confluence</span><span class="tag">Git</span><span class="tag">Sonar</span><span class="tag">Devin</span><span class="tag">Copilot</span>
           </div>
@@ -170,44 +195,44 @@
 
     <!-- Experience -->
     <section id="experience" class="py-16 border-t border-edge">
-      <h2 class="font-mono text-accent text-sm mb-2">03. Professional experience</h2>
-      <h3 class="text-2xl sm:text-3xl font-bold text-white mb-10">Timeline</h3>
+      <h2 class="font-mono text-accent text-sm mb-2"><span class="en">03. Professional experience</span><span class="pt">03. Experiência profissional</span></h2>
+      <h3 class="text-2xl sm:text-3xl font-bold text-white mb-10"><span class="en">Timeline</span><span class="pt">Percurso</span></h3>
 
       <ol class="relative border-l border-edge ml-2 sm:ml-3 space-y-10">
         <li class="ml-6 sm:ml-8">
           <span class="dot"></span>
-          <p class="font-mono text-xs text-accent">Jul 2026 — Present</p>
-          <h4 class="text-lg font-semibold text-white">Application Support Engineer</h4>
+          <p class="font-mono text-xs text-accent"><span class="en">Jul 2026 — Present</span><span class="pt">jul 2026 — atual</span></p>
+          <h4 class="text-lg font-semibold text-white"><span class="en">Application Support Engineer</span><span class="pt">Engenheiro de Suporte a Aplicações</span></h4>
           <p class="text-sm text-slate-400">Agap2IT · Santander PT</p>
         </li>
         <li class="ml-6 sm:ml-8">
           <span class="dot"></span>
-          <p class="font-mono text-xs text-accent">Jan 2026 — Jun 2026</p>
-          <h4 class="text-lg font-semibold text-white">Infrastructure / DevOps</h4>
-          <p class="text-sm text-slate-400">Agap2IT · Internal Project</p>
+          <p class="font-mono text-xs text-accent">jan 2026 — jun 2026</p>
+          <h4 class="text-lg font-semibold text-white"><span class="en">Infrastructure / DevOps</span><span class="pt">Infraestrutura / DevOps</span></h4>
+          <p class="text-sm text-slate-400">Agap2IT · <span class="en">Internal Project</span><span class="pt">Projeto interno</span></p>
         </li>
         <li class="ml-6 sm:ml-8">
           <span class="dot"></span>
-          <p class="font-mono text-xs text-accent">Mar 2023 — Dec 2025</p>
-          <h4 class="text-lg font-semibold text-white">DevOps Engineer / Release Manager</h4>
+          <p class="font-mono text-xs text-accent">mar 2023 — dez 2025</p>
+          <h4 class="text-lg font-semibold text-white"><span class="en">DevOps Engineer / Release Manager</span><span class="pt">Engenheiro DevOps / Release Manager</span></h4>
           <p class="text-sm text-slate-400">Agap2IT · A-to-Be (Grupo Brisa)</p>
         </li>
         <li class="ml-6 sm:ml-8">
           <span class="dot"></span>
-          <p class="font-mono text-xs text-accent">Oct 2021 — Feb 2023</p>
-          <h4 class="text-lg font-semibold text-white">Unpaid Leave</h4>
-          <p class="text-sm text-slate-400">Academic focus for MSc in Cybersecurity</p>
+          <p class="font-mono text-xs text-accent">out 2021 — fev 2023</p>
+          <h4 class="text-lg font-semibold text-white"><span class="en">Unpaid Leave</span><span class="pt">Licença sem vencimento</span></h4>
+          <p class="text-sm text-slate-400"><span class="en">Academic focus for MSc in Cybersecurity</span><span class="pt">Foco académico no mestrado em Cibersegurança</span></p>
         </li>
         <li class="ml-6 sm:ml-8">
           <span class="dot"></span>
-          <p class="font-mono text-xs text-accent">Oct 2019 — Sep 2021</p>
-          <h4 class="text-lg font-semibold text-white">Full-Stack Developer</h4>
+          <p class="font-mono text-xs text-accent">out 2019 — set 2021</p>
+          <h4 class="text-lg font-semibold text-white"><span class="en">Full-Stack Developer</span><span class="pt">Programador Full-Stack</span></h4>
           <p class="text-sm text-slate-400">Agap2IT · Santander</p>
         </li>
         <li class="ml-6 sm:ml-8">
           <span class="dot"></span>
-          <p class="font-mono text-xs text-accent">Feb 2018 — Sep 2019</p>
-          <h4 class="text-lg font-semibold text-white">Full-Stack Developer &amp; Tester</h4>
+          <p class="font-mono text-xs text-accent">fev 2018 — set 2019</p>
+          <h4 class="text-lg font-semibold text-white"><span class="en">Full-Stack Developer &amp; Tester</span><span class="pt">Programador Full-Stack e Testador</span></h4>
           <p class="text-sm text-slate-400">Everis Centers · MAPFRE Malta / SIBS / ANDBANK</p>
         </li>
       </ol>
@@ -215,27 +240,27 @@
 
     <!-- Education -->
     <section id="education" class="py-16 border-t border-edge">
-      <h2 class="font-mono text-accent text-sm mb-2">04. Academic education</h2>
-      <h3 class="text-2xl sm:text-3xl font-bold text-white mb-8">Education</h3>
+      <h2 class="font-mono text-accent text-sm mb-2"><span class="en">04. Academic education</span><span class="pt">04. Formação académica</span></h2>
+      <h3 class="text-2xl sm:text-3xl font-bold text-white mb-8"><span class="en">Education</span><span class="pt">Formação</span></h3>
 
       <div class="grid gap-6 md:grid-cols-2">
         <article class="bg-panel border border-edge rounded-xl p-6">
-          <p class="font-mono text-xs text-accent mb-2">Ongoing</p>
-          <h4 class="text-lg font-semibold text-white">Master's in Electrical and Computer Engineering</h4>
+          <p class="font-mono text-xs text-accent mb-2"><span class="en">Ongoing</span><span class="pt">Em curso</span></p>
+          <h4 class="text-lg font-semibold text-white"><span class="en">Master's in Electrical and Computer Engineering</span><span class="pt">Mestrado em Engenharia Eletrotécnica e de Computadores</span></h4>
           <p class="text-sm text-slate-400 mb-4">Instituto Superior Técnico</p>
-          <p class="text-sm mb-2 font-semibold text-slate-200">Featured courses</p>
+          <p class="text-sm mb-2 font-semibold text-slate-200"><span class="en">Featured courses</span><span class="pt">Disciplinas em destaque</span></p>
           <ul class="text-sm list-disc list-inside space-y-1 mb-4">
-            <li>Communications Security</li>
-            <li>Internet Architectures and Systems</li>
-            <li>Parallel and Heterogeneous Computing Systems</li>
-            <li>Databases</li>
+            <li><span class="en">Communications Security</span><span class="pt">Segurança de Comunicações</span></li>
+            <li><span class="en">Internet Architectures and Systems</span><span class="pt">Arquiteturas e Sistemas da Internet</span></li>
+            <li><span class="en">Parallel and Heterogeneous Computing Systems</span><span class="pt">Sistemas de Computação Paralela e Heterogénea</span></li>
+            <li><span class="en">Databases</span><span class="pt">Bases de Dados</span></li>
           </ul>
-          <p class="text-sm"><span class="font-semibold text-slate-200">Thesis:</span> Cybersecurity</p>
+          <p class="text-sm"><span class="font-semibold text-slate-200"><span class="en">Thesis:</span><span class="pt">Tese:</span></span> <span class="en">Cybersecurity</span><span class="pt">Cibersegurança</span></p>
         </article>
 
         <article class="bg-panel border border-edge rounded-xl p-6">
-          <p class="font-mono text-xs text-accent mb-2">Completed</p>
-          <h4 class="text-lg font-semibold text-white">Bachelor's in Electrical and Computer Engineering</h4>
+          <p class="font-mono text-xs text-accent mb-2"><span class="en">Completed</span><span class="pt">Concluído</span></p>
+          <h4 class="text-lg font-semibold text-white"><span class="en">Bachelor's in Electrical and Computer Engineering</span><span class="pt">Licenciatura em Engenharia Eletrotécnica e de Computadores</span></h4>
           <p class="text-sm text-slate-400">Instituto Superior Técnico</p>
         </article>
       </div>
@@ -243,15 +268,15 @@
 
     <!-- Projects -->
     <section id="projects" class="py-16 border-t border-edge">
-      <h2 class="font-mono text-accent text-sm mb-2">05. Personal projects</h2>
-      <h3 class="text-2xl sm:text-3xl font-bold text-white mb-8">Projects</h3>
+      <h2 class="font-mono text-accent text-sm mb-2"><span class="en">05. Personal projects</span><span class="pt">05. Projetos pessoais</span></h2>
+      <h3 class="text-2xl sm:text-3xl font-bold text-white mb-8"><span class="en">Projects</span><span class="pt">Projetos</span></h3>
 
       <article class="bg-panel border border-edge rounded-xl p-6 hover:border-accent transition">
         <div class="flex items-center gap-3 mb-3">
           <i class="fa-solid fa-flask-vial text-accent text-xl"></i>
           <h4 class="text-lg font-semibold text-white">Home Lab DevOps</h4>
         </div>
-        <p class="text-sm leading-relaxed mb-4">Local configuration for deployment testing.</p>
+        <p class="text-sm leading-relaxed mb-4"><span class="en">Local configuration for deployment testing.</span><span class="pt">Configuração local para testes de deployment.</span></p>
         <div class="flex flex-wrap gap-2 text-xs font-mono">
           <span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Proxmox</span><span class="tag">WSL2</span>
         </div>
@@ -303,18 +328,30 @@
   </style>
 
   <script>
-    // Theme toggle (dark by default, remembered per browser)
     (function () {
       var root = document.documentElement;
-      try {
-        var saved = localStorage.getItem('theme');
-        if (saved === 'light') root.classList.remove('dark');
-      } catch (e) {}
-      var btn = document.getElementById('theme-toggle');
-      btn.addEventListener('click', function () {
+      function safeGet(key) { try { return localStorage.getItem(key); } catch (e) { return null; } }
+      function safeSet(key, value) { try { localStorage.setItem(key, value); } catch (e) {} }
+
+      // Theme toggle (dark by default, remembered per browser)
+      if (safeGet('theme') === 'light') root.classList.remove('dark');
+      document.getElementById('theme-toggle').addEventListener('click', function () {
         var isDark = root.classList.toggle('dark');
-        try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch (e) {}
+        safeSet('theme', isDark ? 'dark' : 'light');
       });
+
+      // Language toggle (PT / EN), remembered per browser
+      function applyLang(lang) {
+        root.lang = lang;
+        document.getElementById('lang-label').textContent = lang === 'pt' ? 'EN' : 'PT';
+      }
+      applyLang(root.lang);
+      document.getElementById('lang-toggle').addEventListener('click', function () {
+        var next = root.lang === 'pt' ? 'en' : 'pt';
+        applyLang(next);
+        safeSet('lang', next);
+      });
+
       document.getElementById('year').textContent = new Date().getFullYear();
     })();
   </script>
