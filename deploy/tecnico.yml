@@ -1,0 +1,170 @@
+- name: Publish the GitHub Pages artifact to Tecnico
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+    repository: 9dot5/9dot5.github.io
+    web_root: /afs/.ist.utl.pt/users/3/8/ist178938/web
+    public_url: https://web.tecnico.ulisboa.pt/ist178938/
+    pages_url: https://9dot5.github.io/
+    published_files:
+      - css/main.css
+      - js/bootstrap.bundle.min.js
+      - img/ist-logo.png
+      - img/profile.png
+      - cv-en.pdf
+      - cv-pt.pdf
+      - .nojekyll
+      - SHA256SUMS
+      - index.html
+  tasks:
+    - name: Require an explicit workflow run
+      ansible.builtin.assert:
+        that:
+          - not ansible_check_mode
+          - run_id is defined
+          - (run_id | default('') | string) is match('^[0-9]+$')
+        fail_msg: "Use -e run_id=RUN_ID for a successful Deploy portfolio run. Check mode is not supported."
+
+    - name: Require a valid Kerberos ticket
+      ansible.builtin.command: klist -s
+      changed_when: false
+      register: kerberos
+      failed_when: false
+
+    - name: Explain how to authenticate when the ticket has expired
+      ansible.builtin.assert:
+        that: kerberos.rc == 0
+        fail_msg: "Run kinit ist178938@IST.UTL.PT in your terminal, then retry. No credentials are stored by this playbook."
+
+    - name: Refresh the AFS token
+      ansible.builtin.command: aklog -c ist.utl.pt
+      changed_when: false
+
+    - name: Check publication directory
+      ansible.builtin.stat:
+        path: "{{ web_root }}"
+      register: web_directory
+
+    - name: Require the existing publication directory
+      ansible.builtin.assert:
+        that:
+          - web_directory.stat.isdir | default(false)
+          - not (web_directory.stat.islnk | default(false))
+
+    - name: Read workflow run metadata
+      ansible.builtin.command:
+        argv:
+          - gh
+          - run
+          - view
+          - "{{ run_id | string }}"
+          - --repo
+          - "{{ repository }}"
+          - --json
+          - status,conclusion,headBranch,headSha,event,workflowName
+      changed_when: false
+      register: workflow_run
+
+    - name: Require a successful trusted main-branch deployment
+      ansible.builtin.assert:
+        that:
+          - run.status == 'completed'
+          - run.conclusion == 'success'
+          - run.headBranch == 'main'
+          - run.event in ['push', 'workflow_dispatch']
+          - run.workflowName == 'Deploy portfolio'
+          - run.headSha is match('^[0-9a-f]{40}$')
+        fail_msg: "Select a successful Deploy portfolio run from main, after GitHub Pages deployment has finished."
+      vars:
+        run: "{{ workflow_run.stdout | from_json }}"
+
+    - name: Create temporary artifact directory
+      ansible.builtin.tempfile:
+        state: directory
+        prefix: portfolio-deploy-
+      register: artifact_directory
+
+    - name: Download, validate and publish the exact build
+      block:
+        - name: Download the selected build artifact
+          ansible.builtin.command:
+            argv:
+              - gh
+              - run
+              - download
+              - "{{ run_id | string }}"
+              - --repo
+              - "{{ repository }}"
+              - --name
+              - "site-{{ (workflow_run.stdout | from_json).headSha }}"
+              - --dir
+              - "{{ artifact_directory.path }}"
+          changed_when: false
+
+        - name: Validate the artifact file list and checksums
+          ansible.builtin.command:
+            argv:
+              - "{{ ansible_playbook_python }}"
+              - "{{ playbook_dir }}/../scripts/verify-site.py"
+              - "{{ artifact_directory.path }}"
+          changed_when: false
+
+        - name: Require the selected artifact to match the live GitHub Pages site
+          ansible.builtin.command:
+            argv:
+              - "{{ ansible_playbook_python }}"
+              - "{{ playbook_dir }}/../scripts/verify-site.py"
+              - "{{ artifact_directory.path }}"
+              - --url
+              - "{{ pages_url }}"
+          changed_when: false
+
+        - name: Check managed destinations
+          ansible.builtin.stat:
+            path: "{{ web_root }}/{{ item }}"
+          loop: "{{ ['css', 'js', 'img'] + published_files }}"
+          register: destinations
+
+        - name: Reject destination symlinks
+          ansible.builtin.assert:
+            that: not (item.stat.islnk | default(false))
+            fail_msg: "Refusing to overwrite a symlink in the publication directory."
+          loop: "{{ destinations.results }}"
+          loop_control:
+            label: "{{ item.item }}"
+
+        - name: Ensure public asset directories exist
+          ansible.builtin.file:
+            path: "{{ web_root }}/{{ item }}"
+            state: directory
+            mode: '0755'
+          loop: [css, js, img]
+
+        - name: Publish managed files with index last and no deletion of old projects
+          ansible.builtin.copy:
+            src: "{{ artifact_directory.path }}/{{ item }}"
+            dest: "{{ web_root }}/{{ item }}"
+            mode: '0644'
+            backup: false
+          loop: "{{ published_files }}"
+
+        - name: Verify public files match the downloaded artifact
+          ansible.builtin.command:
+            argv:
+              - "{{ ansible_playbook_python }}"
+              - "{{ playbook_dir }}/../scripts/verify-site.py"
+              - "{{ artifact_directory.path }}"
+              - --url
+              - "{{ public_url }}"
+          changed_when: false
+
+        - name: Report the deployed version
+          ansible.builtin.debug:
+            msg: "Published {{ (workflow_run.stdout | from_json).headSha }} to {{ public_url }}"
+      always:
+        - name: Remove the temporary artifact directory created by this playbook
+          ansible.builtin.file:
+            path: "{{ artifact_directory.path }}"
+            state: absent
