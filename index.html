@@ -2,7 +2,16 @@
 <html lang="en" data-bs-theme="dark">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b1120">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="9dot5.AI">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="img/icons/icon.svg" type="image/svg+xml">
+  <link rel="icon" href="img/icons/icon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="img/icons/apple-touch-icon.png">
   <title>Rui Pedro Faustino da Silva | DevSecOps &amp; Cybersecurity</title>
   <meta name="description" content="Electrical & DevOps Engineer (7+ years) | MSc Candidate in Electrical and Computer Engineering (MEEC) at Instituto Superior Técnico, with a Thesis in Cybersecurity | Focused on Maintenance and Protection of Production Environments.">
 
@@ -20,6 +29,8 @@
       } catch (e) {}
       root.lang = lang;
       root.setAttribute('data-bs-theme', theme);
+      // Match the phone's status bar to the page background
+      document.querySelector('meta[name="theme-color"]').content = theme === 'light' ? '#f8fafc' : '#0b1120';
     })();
   </script>
 
@@ -50,8 +61,8 @@
         <a href="cv-pt.pdf" download class="pt btn btn-sm btn-primary fw-semibold d-none d-sm-inline-block">
           <i class="fa-solid fa-download"></i> CV
         </a>
-        <button class="navbar-toggler btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#nav-links" aria-controls="nav-links" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+        <button id="install-app" type="button" class="btn btn-sm btn-ghost" hidden>
+          <i class="fa-solid fa-mobile-screen-button"></i><span class="d-none d-sm-inline ms-1"><span class="en">Install app</span><span class="pt">Instalar app</span></span>
         </button>
       </div>
       <div class="collapse navbar-collapse" id="nav-links">
@@ -70,7 +81,7 @@
 
     <!-- Hero -->
     <section class="py-5 my-lg-4 d-flex flex-column align-items-center">
-      <img src="img/profile.png" alt="Rui Pedro Faustino da Silva" class="avatar mb-4">
+      <img src="img/profile.jpg" alt="Rui Pedro Faustino da Silva" class="avatar mb-4" width="176" height="176">
       <p class="font-monospace text-primary small mb-3"><span class="en">Lisbon, Portugal</span><span class="pt">Lisboa, Portugal</span></p>
       <h1 class="display-4 fw-bolder text-body-emphasis lh-sm">Rui Pedro Faustino da Silva</h1>
       <p class="lead text-body-secondary measure mt-3">
@@ -235,7 +246,7 @@
         </article>
 
         <article class="panel d-flex flex-column justify-content-center align-items-center">
-          <img src="img/ist-logo.png" alt="Instituto Superior Técnico" class="school-logo mb-4">
+          <img src="img/ist-logo.png" alt="Instituto Superior Técnico" class="school-logo mb-4" width="413" height="500" loading="lazy">
           <p class="font-monospace small text-primary mb-2"><span class="en">Completed</span><span class="pt">Concluído</span></p>
           <h4 class="h5 fw-semibold text-body-emphasis"><span class="en">Bachelor's in Electrical and Computer Engineering</span><span class="pt">Licenciatura em Engenharia Eletrotécnica e de Computadores</span></h4>
           <p class="small text-body-secondary mb-0">Instituto Superior Técnico</p>
@@ -270,16 +281,42 @@
     </footer>
   </main>
 
-  <script src="js/bootstrap.bundle.min.js"></script>
+  <!-- App-style tab bar for phones and tablets -->
+  <nav class="tabbar d-lg-none" aria-label="Sections">
+    <a href="#about"><i class="fa-solid fa-user"></i><span class="en">About</span><span class="pt">Sobre</span></a>
+    <a href="#skills"><i class="fa-solid fa-code"></i><span class="en">Skills</span><span class="pt">Competências</span></a>
+    <a href="#experience"><i class="fa-solid fa-briefcase"></i><span class="en">Experience</span><span class="pt">Experiência</span></a>
+    <a href="#education"><i class="fa-solid fa-graduation-cap"></i><span class="en">Education</span><span class="pt">Formação</span></a>
+    <a href="#projects"><i class="fa-solid fa-flask-vial"></i><span class="en">Projects</span><span class="pt">Projetos</span></a>
+  </nav>
+
   <script>
     (function () {
       var root = document.documentElement;
+      var themeColor = document.querySelector('meta[name="theme-color"]');
+      var toast = document.getElementById('copy-status');
       function safeSet(key, value) { try { localStorage.setItem(key, value); } catch (e) {} }
+
+      // Small notice placed just under an element, kept inside the viewport
+      function showToast(anchor, text, duration) {
+        toast.textContent = text;
+        var box = anchor.getBoundingClientRect();
+        var half = toast.offsetWidth / 2;
+        var x = Math.min(Math.max(box.left + box.width / 2, half + 8), window.innerWidth - half - 8);
+        toast.style.left = x + 'px';
+        toast.style.top = (box.bottom + 8) + 'px';
+        toast.classList.add('show');
+        clearTimeout(toast.hideTimer);
+        toast.hideTimer = setTimeout(function () {
+          toast.classList.remove('show');
+        }, duration);
+      }
 
       // Theme toggle (dark by default, remembered per browser)
       document.getElementById('theme-toggle').addEventListener('click', function () {
         var next = root.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
         root.setAttribute('data-bs-theme', next);
+        themeColor.content = next === 'light' ? '#f8fafc' : '#0b1120';
         safeSet('theme', next);
       });
 
@@ -301,22 +338,10 @@
           var text = (root.lang === 'pt' && chip.getAttribute('data-copy-pt')) || chip.getAttribute('data-copy');
           var icon = chip.querySelector('i');
           var original = icon.className;
-          var toast = document.getElementById('copy-status');
           navigator.clipboard.writeText(text).then(function () {
             icon.className = 'fa-solid fa-check text-primary me-2';
             chip.classList.add('copied');
-            toast.textContent = (root.lang === 'pt' ? 'Copiado: ' : 'Copied: ') + text;
-            // Place it just under the clicked chip, kept inside the viewport
-            var box = chip.getBoundingClientRect();
-            var half = toast.offsetWidth / 2;
-            var x = Math.min(Math.max(box.left + box.width / 2, half + 8), window.innerWidth - half - 8);
-            toast.style.left = x + 'px';
-            toast.style.top = (box.bottom + 8) + 'px';
-            toast.classList.add('show');
-            clearTimeout(toast.hideTimer);
-            toast.hideTimer = setTimeout(function () {
-              toast.classList.remove('show');
-            }, 1500);
+            showToast(chip, (root.lang === 'pt' ? 'Copiado: ' : 'Copied: ') + text, 1500);
             setTimeout(function () {
               icon.className = original;
               chip.classList.remove('copied');
@@ -325,13 +350,67 @@
         });
       });
 
-      // Close the mobile menu after picking a section
-      var links = document.getElementById('nav-links');
-      links.addEventListener('click', function (event) {
-        if (event.target.closest('.nav-link') && links.classList.contains('show')) {
-          bootstrap.Collapse.getOrCreateInstance(links).hide();
+      // Highlight the section being read, in the top bar and in the tab bar
+      var navLinks = document.querySelectorAll('.navbar-nav .nav-link, .tabbar a');
+      if ('IntersectionObserver' in window) {
+        var spy = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            navLinks.forEach(function (link) {
+              var on = link.getAttribute('href') === '#' + entry.target.id;
+              link.classList.toggle('active', on);
+              if (on) link.setAttribute('aria-current', 'location');
+              else link.removeAttribute('aria-current');
+            });
+          });
+        }, { rootMargin: '-45% 0px -50% 0px' });
+        document.querySelectorAll('main section[id]').forEach(function (section) { spy.observe(section); });
+      }
+
+      // Install as an app: native prompt where the browser offers one, instructions on iPhone/iPad
+      var installButton = document.getElementById('install-app');
+      var standalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+      var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      var deferredPrompt = null;
+      installButton.setAttribute('aria-label', 'Install app');
+      window.addEventListener('beforeinstallprompt', function (event) {
+        event.preventDefault();
+        deferredPrompt = event;
+        installButton.hidden = false;
+      });
+      window.addEventListener('appinstalled', function () {
+        deferredPrompt = null;
+        installButton.hidden = true;
+      });
+      if (isIOS && !standalone) installButton.hidden = false;
+      installButton.addEventListener('click', function () {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then(function () {
+            deferredPrompt = null;
+            installButton.hidden = true;
+          });
+        } else {
+          showToast(installButton, root.lang === 'pt'
+            ? 'Toque em Partilhar e depois em "Adicionar ao ecrã principal".'
+            : 'Tap Share, then "Add to Home Screen".', 5000);
         }
       });
+
+      // Opening a link such as #experience (app shortcuts): land on it again once web fonts have reflowed the text
+      if (location.hash && document.fonts) {
+        document.fonts.ready.then(function () {
+          var target = document.getElementById(location.hash.slice(1));
+          if (target) target.scrollIntoView({ behavior: 'instant' });
+        });
+      }
+
+      // Offline support and installability
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('sw.js').catch(function () {});
+        });
+      }
 
       document.getElementById('year').textContent = new Date().getFullYear();
     })();

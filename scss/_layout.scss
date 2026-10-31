@@ -152,9 +152,80 @@ section[id] {
 }
 
 .navbar-glass {
+  // Clear the notch / status bar when installed as an app
+  padding-top: calc(#{$navbar-padding-y} + env(safe-area-inset-top));
   background-color: rgba(var(--bs-body-bg-rgb), .8);
   border-bottom: 1px solid var(--bs-border-color);
   backdrop-filter: blur(8px);
+
+  .nav-link.active {
+    color: var(--bs-primary);
+  }
+}
+
+// Bottom tab bar, as in a native app, below the lg breakpoint
+.tabbar {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $zindex-fixed;
+  display: flex;
+  padding: .35rem max(.5rem, env(safe-area-inset-right)) calc(.35rem + env(safe-area-inset-bottom)) max(.5rem, env(safe-area-inset-left));
+  background-color: rgba(var(--bs-body-bg-rgb), .9);
+  border-top: 1px solid var(--bs-border-color);
+  backdrop-filter: blur(8px);
+
+  a {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    gap: .2rem;
+    align-items: center;
+    min-width: 0;
+    padding: .3rem 0;
+    font-size: .7rem;
+    line-height: 1.1;
+    color: var(--bs-secondary-color);
+    text-align: center;
+    text-align-last: center;
+    border-radius: $border-radius;
+    transition: color .15s ease-in-out;
+
+    i {
+      font-size: 1.15rem;
+    }
+
+    span {
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &.active,
+    &:hover {
+      color: var(--bs-primary);
+    }
+
+    &.active {
+      background-color: rgba(var(--bs-primary-rgb), .12);
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  body {
+    // Keep the footer clear of the tab bar
+    padding-bottom: calc(4.25rem + env(safe-area-inset-bottom));
+  }
+}
+
+// Native feel on touch screens
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 // Brand glyph: half "1" (flag), half "I" (serifs), sized to one monospace cell at cap height
@@ -176,6 +247,7 @@ section[id] {
 
 .avatar {
   width: clamp(8rem, 6rem + 8vw, 11rem);
+  height: auto;
   aspect-ratio: 1;
   object-fit: cover;
   object-position: top;

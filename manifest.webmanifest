@@ -1,0 +1,25 @@
+{
+  "id": "./",
+  "name": "9dot5.AI · Rui Pedro Faustino da Silva",
+  "short_name": "9dot5.AI",
+  "description": "Electrical & DevOps Engineer (7+ years) | MSc Candidate in Electrical and Computer Engineering (MEEC) at Instituto Superior Técnico, with a Thesis in Cybersecurity.",
+  "lang": "en",
+  "start_url": "./?source=app",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0b1120",
+  "theme_color": "#0b1120",
+  "categories": ["business", "productivity"],
+  "icons": [
+    { "src": "img/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "img/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "img/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "img/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "Experience", "url": "./?source=shortcut#experience", "icons": [{ "src": "img/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Skills", "url": "./?source=shortcut#skills", "icons": [{ "src": "img/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Education", "url": "./?source=shortcut#education", "icons": [{ "src": "img/icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
